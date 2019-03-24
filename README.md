@@ -24,43 +24,43 @@ Student is required to create an R script run_analysis.R that performs the follo
 Data processing script
 
 1. Creating data folder, download and unzip data
-1.1 Create input folder if it does not exist
-if(!file.exists("./data")){
-    dir.create("./data")
-}
+    1.1 Create input folder if it does not exist
+    if(!file.exists("./data")){
+        dir.create("./data")
+    }
 
-1.2 Download the zip file
-inputurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(inputurl,destfile="./data/homeworkdataset.zip")
+    1.2 Download the zip file
+    inputurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    download.file(inputurl,destfile="./data/homeworkdataset.zip")
 
-1.3 Unzip the downloaded data set to the /data directory
-unzip(zipfile="./data/homeworkdataset.zip",exdir="./data")
+    1.3 Unzip the downloaded data set to the /data directory
+    unzip(zipfile="./data/homeworkdataset.zip",exdir="./data")
 
 2. Reading input data and assign column names for readability
-2.1 Read in the input data
-xtraining <- read.table("./data/UCI HAR Dataset/train/X_train.txt")
-ytraining <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
-subjecttraining <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
+    2.1 Read in the input data
+    xtraining <- read.table("./data/UCI HAR Dataset/train/X_train.txt")
+    ytraining <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
+    subjecttraining <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
 
-xtesting <- read.table("./data/UCI HAR Dataset/test/X_test.txt")
-ytesting <- read.table("./data/UCI HAR Dataset/test/y_test.txt")
-subjecttesting <- read.table("./data/UCI HAR Dataset/test/subject_test.txt")
+    xtesting <- read.table("./data/UCI HAR Dataset/test/X_test.txt")
+    ytesting <- read.table("./data/UCI HAR Dataset/test/y_test.txt")
+    subjecttesting <- read.table("./data/UCI HAR Dataset/test/subject_test.txt")
 
-features <- read.table('./data/UCI HAR Dataset/features.txt')
+    features <- read.table('./data/UCI HAR Dataset/features.txt')
 
-activitylabels = read.table('./data/UCI HAR Dataset/activity_labels.txt')
+    activitylabels = read.table('./data/UCI HAR Dataset/activity_labels.txt')
 
-2.2 Set columnn names
-colnames(xtraining) <- features[,2] 
-colnames(xtesting) <- features[,2] 
+    2.2 Set columnn names
+    colnames(xtraining) <- features[,2] 
+    colnames(xtesting) <- features[,2] 
 
-colnames(ytraining) <-"activityid"
-colnames(ytesting) <- "activityid"
+    colnames(ytraining) <-"activityid"
+    colnames(ytesting) <- "activityid"
 
-colnames(subjecttraining) <- "subjectid"
-colnames(subjecttesting) <- "subjectid"
+    colnames(subjecttraining) <- "subjectid"
+    colnames(subjecttesting) <- "subjectid"
 
-colnames(activitylabels) <- c("activityid","activityname")
+    colnames(activitylabels) <- c("activityid","activityname")
 
 3. Merge data columns and rows to generate complete data set
 completetraining <- cbind(subjecttraining, ytraining, xtraining)
@@ -70,26 +70,26 @@ completetesting <- cbind(subjecttesting, ytesting, xtesting)
 completedata <- rbind(completetraining, completetesting)
 
 4. Extracting measurements on the mean and std
-4.1 Extract only meansurements on mean and std
-colnames <- colnames(completedata)
+    4.1 Extract only meansurements on mean and std
+    colnames <- colnames(completedata)
 
-colnamestobeextracted <- (grepl ("subjectid", colnames) |
-                          grepl ("activityid", colnames) |
-                          grepl ("mean..", colnames) |
-                          grepl ("std..", colnames))
+    colnamestobeextracted <- (grepl ("subjectid", colnames) |
+                              grepl ("activityid", colnames) |
+                              grepl ("mean..", colnames) |
+                              grepl ("std..", colnames))
 
-extracteddata <- completedata[, colnamestobeextracted==TRUE]
+    extracteddata <- completedata[, colnamestobeextracted==TRUE]
 
-4.2 Merge extracted data and activity labels
-extractedatawithactivitylabel <- merge (extracteddata, activitylabels, 
-                                        by="activityid", all.x=TRUE)
+    4.2 Merge extracted data and activity labels
+    extractedatawithactivitylabel <- merge (extracteddata, activitylabels, 
+                                            by="activityid", all.x=TRUE)
 
-4.3 Convert extracted data from data frame to data table for the ease of manipulation
-extractedatawithactivitylabeldt <- data.table(extractedatawithactivitylabel)
+    4.3 Convert extracted data from data frame to data table for the ease of manipulation
+    extractedatawithactivitylabeldt <- data.table(extractedatawithactivitylabel)
 
-4.4 Order the data table by subject id and activity id
-ordercols <- c("subjectid", "activityid")
-ordereddt <- setorderv(extractedatawithactivitylabeldt, ordercols)
+    4.4 Order the data table by subject id and activity id
+    ordercols <- c("subjectid", "activityid")
+    ordereddt <- setorderv(extractedatawithactivitylabeldt, ordercols)
 
 5. Calculate mean and group by subject id and activity id
 aggregateddt <- aggregate(. ~subjectid + activityid, ordereddt, mean)
