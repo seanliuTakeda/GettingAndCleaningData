@@ -75,5 +75,5 @@ ordereddt <- setorderv(extractedatawithactivitylabeldt, ordercols)
 aggregateddt <- aggregate(. ~subjectid + activityid, ordereddt, mean)
 
 # write the aggregated data into a text file and omit row names
-write.table(aggregateddt, "aggregateddata.txt", row.name=FALSE, sep = "\t")
+write.table(aggregateddt, "./data/aggregateddata.txt", row.name=FALSE, sep = "\t")
 
