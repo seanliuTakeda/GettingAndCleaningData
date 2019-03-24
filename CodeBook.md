@@ -5,27 +5,27 @@ This code book describes the data used in the analysis that produced the second 
 Data Overview:
 30 volunteers were recruited and performed 6 different activities while wearing a Samsung smartphone. The smartphone captured various data about their activities.  The data set from the 30 volunteers were divided into the training set (21 volunteers) and tesing set (9 volunteers).
 
-Brief Description of the Data Files:
+Brief Description of the Data Files Used in Analysis:
 
-X_train.txt: 7352 observations of the 561 features for the training set
+1. X_train.txt: 7352 observations of the 561 features for the training set
 
-y_train.txt: A vector of 7352 integers which denotes the activity id of the activity.  Each activity id matches with the observation on the corresponding row in X_train.txt.
+2. y_train.txt: A vector of 7352 integers which denotes the activity id of the activity.  Each activity id matches with the observation on the corresponding row in X_train.txt.
 
-subject_train.txt: A vector of 7352 integers which denotes the subject id of each volunteer. Each subject id matches with the observation on the corresponding row in X_train.txt.
+3. subject_train.txt: A vector of 7352 integers which denotes the subject id of each volunteer. Each subject id matches with the observation on the corresponding row in X_train.txt.
 
-X_test.txt: 2947 observations of the 561 features for the testing set
+4. X_test.txt: 2947 observations of the 561 features for the testing set
 
-y_test.txt: A vector of 2947 integers which denotes the activity id of the activity.  Each activity id matches with the observation on the corresponding row in X_test.txt.
+5. y_test.txt: A vector of 2947 integers which denotes the activity id of the activity.  Each activity id matches with the observation on the corresponding row in X_test.txt.
 
-subject_test.txt: A vector of 2947 integers which denotes the subject id of each volunteer. Each subject id matches with the observation on the corresponding row in X_test.txt.
+6. subject_test.txt: A vector of 2947 integers which denotes the subject id of each volunteer. Each subject id matches with the observation on the corresponding row in X_test.txt.
 
-features.txt: Names of the 561 features captured by the smart phones.
+7. features.txt: Names of the 561 features captured by the smart phones.
 
-activity_labels.txt: Ids and names mapping for the 6 activities
+8. activity_labels.txt: Ids and names mapping for the 6 activities
 
 Additional information about the files can be found in the README.txt. Additional information about the features can be found in features_info.txt.  README.txt and features_info.txt were not used in the run_analysis.R script.
 
-Raw data files in the "Inertial Signals" folders of training and testing data sets were ignored.
+Raw data files in the "Inertial Signals" folders of training and testing data sets were not used.
 
 Processing Steps:
 
