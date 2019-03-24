@@ -24,17 +24,20 @@ Student is required to create an R script run_analysis.R that performs the follo
 Data processing script
 
 1. Creating data folder, download and unzip data
+1.1 Create input folder if it does not exist
 if(!file.exists("./data")){
     dir.create("./data")
 }
 
+1.2 Download the zip file
 inputurl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(inputurl,destfile="./data/homeworkdataset.zip")
 
-# Unzip the downloaded data set to the /data directory
+1.3 Unzip the downloaded data set to the /data directory
 unzip(zipfile="./data/homeworkdataset.zip",exdir="./data")
 
 2. Reading input data and assign column names for readability
+2.1 Read in the input data
 xtraining <- read.table("./data/UCI HAR Dataset/train/X_train.txt")
 ytraining <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
 subjecttraining <- read.table("./data/UCI HAR Dataset/train/subject_train.txt")
@@ -47,32 +50,27 @@ features <- read.table('./data/UCI HAR Dataset/features.txt')
 
 activitylabels = read.table('./data/UCI HAR Dataset/activity_labels.txt')
 
-# use feature names as the column names for xtraining and xtesting
+2.2 Set columnn names
 colnames(xtraining) <- features[,2] 
 colnames(xtesting) <- features[,2] 
 
-# ytraining and ytesting contains the corresponding activity id
 colnames(ytraining) <-"activityid"
 colnames(ytesting) <- "activityid"
 
-# subjecttraining and subjecttesting contains the subject ids for the volunteers 
 colnames(subjecttraining) <- "subjectid"
 colnames(subjecttesting) <- "subjectid"
 
 colnames(activitylabels) <- c("activityid","activityname")
 
 3. Merge data columns and rows to generate complete data set
-# Merge all training data together using cbind
 completetraining <- cbind(subjecttraining, ytraining, xtraining)
 
-# Merge all testing data together using cbind
 completetesting <- cbind(subjecttesting, ytesting, xtesting)
 
-# merge trainig and testing using rbind
 completedata <- rbind(completetraining, completetesting)
 
 4. Extracting measurements on the mean and std
-# and activity id from all the columns
+4.1 Extract only meansurements on mean and std
 colnames <- colnames(completedata)
 
 colnamestobeextracted <- (grepl ("subjectid", colnames) |
@@ -82,15 +80,14 @@ colnamestobeextracted <- (grepl ("subjectid", colnames) |
 
 extracteddata <- completedata[, colnamestobeextracted==TRUE]
 
-# merge extracted data and activitylabels data set by activityid
+4.2 Merge extracted data and activity labels
 extractedatawithactivitylabel <- merge (extracteddata, activitylabels, 
                                         by="activityid", all.x=TRUE)
 
-# convert the data frame into data table for easy manipulation
+4.3 Convert extracted data from data frame to data table for the ease of manipulation
 extractedatawithactivitylabeldt <- data.table(extractedatawithactivitylabel)
 
-# order the data set by subject id then activity id 
-
+4.4 Order the data table by subject id and activity id
 ordercols <- c("subjectid", "activityid")
 ordereddt <- setorderv(extractedatawithactivitylabeldt, ordercols)
 
