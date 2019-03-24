@@ -29,8 +29,10 @@ Raw data files in the "Inertial Signals" folders of training and testing data se
 
 Processing Steps:
 
-All of the relevant data files were first read into data frames.  After that, appropriate column headers were added for readability.  All data frames for training and testing were combined into a training data frame and testing data frame. An additional step to combine training and testing was performed to produce the complete data set.
-All feature columns that are not subjectid or activityid or did not contain "mean" or "std" were removed. 
-The activity label column is added to the the extracted data table.
-A second tidy data set was created by calculating the mean by subjectid and activityid.  Since there are 30 subjects and 6 activities.  The resulting second tidy data file has 180 rows.
-The resulting second tidy data set was output to a tab delimited text file.
+1. All of the relevant data files were first read into data frames.  
+2. After that, appropriate column headers were added for readability.  
+3. All data frames for training and testing were combined into a training data frame and testing data frame. An additional step to combine training and testing was performed to produce the complete data set.
+4. All feature columns that are not subjectid or activityid or did not contain "mean" or "std" were removed. 
+5. The activity label column is added to the the extracted data table.
+6. A second tidy data set was created by calculating the mean by subjectid and activityid.  Since there are 30 subjects and 6 activities.  The resulting second tidy data file has 180 rows.
+7. The resulting second tidy data set was output to a tab delimited text file.
