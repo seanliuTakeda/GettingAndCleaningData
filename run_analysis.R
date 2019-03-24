@@ -54,8 +54,8 @@ colnames <- colnames(completedata)
 
 colnamestobeextracted <- (grepl ("subjectid", colnames) |
                           grepl ("activityid", colnames) |
-                          grepl ("mean..", colnames) |
-                          grepl ("std..", colnames))
+                          grepl ("mean()", colnames, fixed=TRUE) |
+                          grepl ("std()", colnames, fixed=TRUE))
 
 extracteddata <- completedata[, colnamestobeextracted==TRUE]
 
@@ -76,3 +76,4 @@ aggregateddt <- aggregate(. ~subjectid + activityid, ordereddt, mean)
 
 # write the aggregated data into a text file and omit row names
 write.table(aggregateddt, "aggregateddata.txt", row.name=FALSE, sep = "\t")
+
