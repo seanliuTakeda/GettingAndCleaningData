@@ -24,7 +24,8 @@ Student is required to create an R script run_analysis.R that performs the follo
 Data processing script
 
 1. Creating data folder, download and unzip data
-    1.1 Create input folder if it does not exist
+   
+   1.1 Create input folder if it does not exist
     if(!file.exists("./data")){
         dir.create("./data")
     }
@@ -37,6 +38,7 @@ Data processing script
     unzip(zipfile="./data/homeworkdataset.zip",exdir="./data")
 
 2. Reading input data and assign column names for readability
+   
     2.1 Read in the input data
     xtraining <- read.table("./data/UCI HAR Dataset/train/X_train.txt")
     ytraining <- read.table("./data/UCI HAR Dataset/train/y_train.txt")
@@ -70,6 +72,7 @@ completetesting <- cbind(subjecttesting, ytesting, xtesting)
 completedata <- rbind(completetraining, completetesting)
 
 4. Extracting measurements on the mean and std
+    
     4.1 Extract only meansurements on mean and std
     colnames <- colnames(completedata)
 
